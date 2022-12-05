@@ -7,14 +7,14 @@ orbs:
 workflows:
   test-and-build:
     jobs:
-    unit-test:
-      executor:
-        name: android/android-docker
-        tag: 2022.08.1
-      steps:
-        - checkout
-        - android/restore-gradle-cache
-        - android/run-tests:
-            test-command: ./gradlew testDebug
-        - android/save-gradle-cache
+      unit-test:
+        executor:
+          name: android/android-docker
+          tag: 2022.08.1
+        steps:
+          - checkout
+          - android/restore-gradle-cache
+          - android/run-tests:
+              test-command: ./gradlew testDebug
+          - android/save-gradle-cache
       
