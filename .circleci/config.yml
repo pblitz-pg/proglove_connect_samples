@@ -27,11 +27,8 @@ jobs:
       - run:
           name: Configure command line tools
           command: |
+              export PROGLOVE_URL="https://dl.cloudsmith.io/public/proglove/pgconnect-public/maven/"
               sed -i "s,url \".*\",url \"$PROGLOVE_URL\",g" build.gradle
-      - run:
-          name: Gradle assemble debug
-          command: ./gradlew assembleDebug
-
       - run:
           name: Gradle assemble debug
           command: ./gradlew assembleDebug
