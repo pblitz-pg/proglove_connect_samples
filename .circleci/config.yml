@@ -8,7 +8,8 @@ jobs:
     environment:
           ANDROID_BUILD_TOOLS_VERSION: 30.0.3
           ANDROID_HOME: ~/android-sdk
-          SECURE: VqcMEAP6b35VCjrIgRJdGEjnokcdD8cb6gJxoDsRMRFiSMW42A4AE/arknP/diweGjjKzYEr7o/1VUwKPmCbiTNB+9BE2UNUXNuvRZe6BAPo09TmONGRakG9eyidWza8cRjLP1tWlNof80DdaJATBe14Tp8ygXn4VjMV26GtEslcF7QdcC3d7NRPJCdGo4T2nFhfZlA7RELvCBiVXZOCQ3OFELeeTap8VI5M5FrxTwzQNoBT2+fHH92fHdY684oUBlXiml5IUAAa4AgohGsa7WuHILo9Id4AtMCISLfV+oBPgd0Gy0cz8P+7OXkfvoIQkOgosEeIhM3JVzxQrUMmOktgZWPVpuyGJskucxs6Ck1PLImKiGUB9buWfTZ/SRjpu26dMtK1zAlhKZI6AQf/gFQwsaiWvDsFjgOothkKxYIpUxpnZe/5GjhDtkC7EhXH9AHY7RCMspLA+paRcHlLJT/1XxjwfqBN9c/TAatTkg+3GHyT9nCLgex9CAvSiite/3pJk9zqXqJBVPv+GvH+I4IyDVSnN7y86rBG49/sIruWf6r16vZWbCmVgsTiv8GPGo4OrwTBVk9k3vqiJ2FunyiK6JsMFimcD7RBe5NJKMPVtrPrWk3Z4PAXUEEYdHF1sHZIirpCS6sitiUyueOlFEzAbltfrikfs48BDAvCHg8=
+          PROGLOVE_URL: https://dl.cloudsmith.io/public/proglove/pgconnect-public/maven/
+
     steps:
       - checkout
       - run:
