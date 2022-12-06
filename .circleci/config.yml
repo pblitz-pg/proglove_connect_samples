@@ -1,20 +1,51 @@
 version: 2.1
 
-orbs:
-  android: "2.1.2"
+jobs:
 
+  example:
+    docker:
+      - image: circleci/android:api-26-node
+    environment:
+          ANDROID_BUILD_TOOLS_VERSION: 30.0.3
+          ANDROID_HOME: ~/android-sdk
+          SECURE: VqcMEAP6b35VCjrIgRJdGEjnokcdD8cb6gJxoDsRMRFiSMW42A4AE/arknP/diweGjjKzYEr7o/1VUwKPmCbiTNB+9BE2UNUXNuvRZe6BAPo09TmONGRakG9eyidWza8cRjLP1tWlNof80DdaJATBe14Tp8ygXn4VjMV26GtEslcF7QdcC3d7NRPJCdGo4T2nFhfZlA7RELvCBiVXZOCQ3OFELeeTap8VI5M5FrxTwzQNoBT2+fHH92fHdY684oUBlXiml5IUAAa4AgohGsa7WuHILo9Id4AtMCISLfV+oBPgd0Gy0cz8P+7OXkfvoIQkOgosEeIhM3JVzxQrUMmOktgZWPVpuyGJskucxs6Ck1PLImKiGUB9buWfTZ/SRjpu26dMtK1zAlhKZI6AQf/gFQwsaiWvDsFjgOothkKxYIpUxpnZe/5GjhDtkC7EhXH9AHY7RCMspLA+paRcHlLJT/1XxjwfqBN9c/TAatTkg+3GHyT9nCLgex9CAvSiite/3pJk9zqXqJBVPv+GvH+I4IyDVSnN7y86rBG49/sIruWf6r16vZWbCmVgsTiv8GPGo4OrwTBVk9k3vqiJ2FunyiK6JsMFimcD7RBe5NJKMPVtrPrWk3Z4PAXUEEYdHF1sHZIirpCS6sitiUyueOlFEzAbltfrikfs48BDAvCHg8=
+    steps:
+      - checkout
+      - run:
+          name: Create android repository
+          command: touch $HOME/.android/repositories.cfg
+          
+      - run:
+          name: Fetch command line tools
+          command: wget "https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip" -O commandlinetools.zip
+          
+      - run:
+          name: Unzip command line tools
+          command: unzip commandlinetools.zip
+          
+      - run:
+          name: Configure command line tools
+          command: |
+              - yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --licenses --sdk_root=$ANDROID_HOME
+              - $ANDROID_HOME/cmdline-tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" --sdk_root=$ANDROID_HOME
+              # Replacing the public repo url with the alpha repo url. The url must contain a entitlement token
+              - sed -i "s,url \".*\",url \"$PROGLOVE_URL\",g" build.gradle
+      - run:
+          name: Gradle assemble debug
+          command: ./gradlew assembleDebug
+
+      - run:
+          name: Gradle assemble debug
+          command: ./gradlew assembleDebug
 
 workflows:
-  test-and-build:
+  sample_workflow:
     jobs:
-      unit-test:
-        executor:
-          name: android/android-docker
-          tag: 2022.08.1
-        steps:
-          - checkout
-          - android/restore-gradle-cache
-          - android/run-tests:
-              test-command: ./gradlew testDebug
-          - android/save-gradle-cache
-      
+      - example:
+          filters: 
+            branches:
+              only:
+               - cci-test
+
+
+# VS Code Extension Version: 1.3.0
