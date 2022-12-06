@@ -26,10 +26,9 @@ jobs:
       - run:
           name: Configure command line tools
           command: |
-              - yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --licenses --sdk_root=$ANDROID_HOME
-              - $ANDROID_HOME/cmdline-tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" --sdk_root=$ANDROID_HOME
-              # Replacing the public repo url with the alpha repo url. The url must contain a entitlement token
-              - sed -i "s,url \".*\",url \"$PROGLOVE_URL\",g" build.gradle
+              yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --licenses --sdk_root=$ANDROID_HOME
+              $ANDROID_HOME/cmdline-tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" --sdk_root=$ANDROID_HOME
+              sed -i "s,url \".*\",url \"$PROGLOVE_URL\",g" build.gradle
       - run:
           name: Gradle assemble debug
           command: ./gradlew assembleDebug
