@@ -41,11 +41,8 @@ jobs:
 workflows:
   sample_workflow:
     jobs:
-      - example:
-          filters: 
-            branches:
-              only:
-               - cci-test
+      - example
+          
 
 
 # VS Code Extension Version: 1.3.0
